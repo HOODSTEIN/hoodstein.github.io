@@ -1,14 +1,847 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HOODSTEIN</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HOODSTEIN — Enter the Universe</title>
+  <style>
+    :root {
+      --bg: #060913;
+      --bg-2: #0b1124;
+      --panel: rgba(10, 16, 32, 0.72);
+      --text: #f3f8ff;
+      --muted: #adc0e0;
+      --line: rgba(128, 191, 255, 0.18);
+      --glow: #67b7ff;
+      --glow-2: #91e2ff;
+      --accent: #4aa3ff;
+      --accent-2: #8fd3ff;
+      --danger: #bfdfff;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(68, 150, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 80% 18%, rgba(102, 236, 255, 0.12), transparent 22%),
+        linear-gradient(180deg, #02040a 0%, #08101f 30%, #060913 55%, #03050a 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0 1px, transparent 1px 120px);
+      opacity: 0.35;
+      mix-blend-mode: soft-light;
+      z-index: 0;
+    }
+
+    .lightning, .orbs {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .lightning::before,
+    .lightning::after {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 180vh;
+      top: -20vh;
+      background: linear-gradient(180deg, transparent, rgba(159, 223, 255, 0.9), transparent);
+      filter: blur(1px);
+      opacity: 0;
+      transform: rotate(18deg);
+      animation: strike 12s linear infinite;
+      box-shadow: 0 0 22px rgba(143, 211, 255, 0.7), 0 0 42px rgba(74, 163, 255, 0.35);
+    }
+
+    .lightning::before { left: 18%; animation-delay: 1s; }
+    .lightning::after { right: 16%; animation-delay: 6.5s; }
+
+    .orbs::before,
+    .orbs::after {
+      content: "";
+      position: absolute;
+      width: 30rem;
+      height: 30rem;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      animation: drift 14s ease-in-out infinite;
+    }
+
+    .orbs::before {
+      top: 8%;
+      left: -8%;
+      background: radial-gradient(circle, rgba(74,163,255,0.95), transparent 62%);
+    }
+
+    .orbs::after {
+      right: -10%;
+      bottom: 12%;
+      background: radial-gradient(circle, rgba(145,226,255,0.95), transparent 58%);
+      animation-delay: -6s;
+    }
+
+    @keyframes strike {
+      0%, 6%, 100% { opacity: 0; }
+      6.4% { opacity: 0.2; }
+      6.8% { opacity: 0.95; }
+      7.2% { opacity: 0.15; }
+      7.5% { opacity: 1; }
+      8.2% { opacity: 0; }
+    }
+
+    @keyframes drift {
+      0%, 100% { transform: translate3d(0,0,0) scale(1); }
+      50% { transform: translate3d(2rem, -1rem, 0) scale(1.06); }
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.2rem;
+      background: linear-gradient(180deg, rgba(2,4,10,0.88), rgba(2,4,10,0.35));
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .brand {
+      display: flex;
+      gap: 0.8rem;
+      align-items: center;
+      letter-spacing: 0.18em;
+      font-weight: 800;
+      font-size: 0.92rem;
+    }
+
+    .brand-mark {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 0.8rem;
+      background: linear-gradient(145deg, rgba(103,183,255,0.28), rgba(145,226,255,0.05));
+      border: 1px solid rgba(143, 211, 255, 0.26);
+      box-shadow: inset 0 0 20px rgba(143,211,255,0.12), 0 0 26px rgba(74,163,255,0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-mark::before {
+      content: "⚡";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+      color: #ddf4ff;
+      text-shadow: 0 0 20px rgba(145,226,255,0.85);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a,
+    .button,
+    .ghost {
+      text-decoration: none;
+      color: var(--text);
+      padding: 0.78rem 1rem;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 211, 255, 0.14);
+      background: rgba(255,255,255,0.03);
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover,
+    .button:hover,
+    .ghost:hover {
+      transform: translateY(-2px);
+      border-color: rgba(143, 211, 255, 0.4);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.24), 0 0 28px rgba(103,183,255,0.12);
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: linear-gradient(135deg, rgba(74,163,255,0.95), rgba(145,226,255,0.78));
+      color: #04101d;
+      font-weight: 800;
+      border-color: transparent;
+      box-shadow: 0 20px 50px rgba(58, 145, 255, 0.28);
+    }
+
+    .ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      padding: 7rem 1.3rem 3rem;
+    }
+
+    .hero-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.02fr 0.98fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 0.55rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(143, 211, 255, 0.18);
+      background: rgba(7, 15, 32, 0.5);
+      color: var(--accent-2);
+      letter-spacing: 0.18em;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: clamp(3.4rem, 7vw, 7.2rem);
+      line-height: 0.95;
+      margin: 1rem 0 1.2rem;
+      letter-spacing: -0.05em;
+      text-transform: uppercase;
+      text-shadow: 0 0 24px rgba(103,183,255,0.08);
+    }
+
+    .gradient-text {
+      background: linear-gradient(180deg, #ffffff 0%, #cdeeff 42%, #7cc4ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 42rem;
+      font-size: 1.08rem;
+      line-height: 1.75;
+      color: var(--muted);
+      margin: 0 0 1.5rem;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 1.6rem 0 1.4rem;
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      padding: 1rem;
+      border-radius: 1.2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .visual-card {
+      min-height: 42rem;
+      border-radius: 2rem;
+      border: 1px solid rgba(143, 211, 255, 0.16);
+      box-shadow: var(--shadow), inset 0 0 30px rgba(103,183,255,0.08);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      background: #06101d;
+    }
+
+    .visual-card img,
+    .image-fill {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .visual-card::after,
+    .image-overlay {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(4,7,14,0.15) 0%, rgba(4,7,14,0.42) 52%, rgba(4,7,14,0.9) 100%);
+      z-index: 1;
+    }
+
+    .floating-copy {
+      position: absolute;
+      bottom: 1.2rem;
+      left: 1.2rem;
+      right: 1.2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      z-index: 2;
+    }
+
+    .mini-panel {
+      padding: 1rem;
+      border-radius: 1.2rem;
+      background: rgba(5, 10, 20, 0.58);
+      border: 1px solid rgba(143, 211, 255, 0.16);
+      backdrop-filter: blur(10px);
+    }
+
+    .section {
+      position: relative;
+      z-index: 1;
+      padding: 5.5rem 1.3rem;
+    }
+
+    .section-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 4rem);
+      line-height: 1;
+      margin: 0.3rem 0 0;
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+    }
+
+    .section-head p {
+      max-width: 42rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .story-grid,
+    .characters-grid,
+    .media-grid,
+    .shop-grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .story-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+    }
+
+    .characters-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .media-grid {
+      grid-template-columns: 1.1fr 0.9fr 0.9fr;
+    }
+
+    .shop-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 1.7rem;
+      padding: 1.3rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(143,211,255,0.45), transparent);
+      opacity: 0.5;
+    }
+
+    .panel h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.35rem;
+    }
+
+    .panel p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .quote-block {
+      min-height: 100%;
+      display: grid;
+      place-items: center;
+      text-align: left;
+      font-size: clamp(1.7rem, 3vw, 2.6rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      padding: 2rem;
+      background: radial-gradient(circle at top, rgba(145,226,255,0.12), transparent 28%), linear-gradient(180deg, rgba(8,14,27,0.85), rgba(4,8,16,0.8));
+    }
+
+    .quote-block span { color: var(--accent-2); }
+
+    .character-card {
+      min-height: 28rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(180deg, rgba(145,226,255,0.05), transparent 28%), linear-gradient(180deg, rgba(10,14,24,0.2), rgba(3,7,14,0.95));
+    }
+
+    .character-art {
+      height: 19rem;
+      border-radius: 1.2rem;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(143,211,255,0.12);
+      background: #07111f;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .character-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .character-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 40%, rgba(4,8,16,0.35));
+      pointer-events: none;
+    }
+
+    .label {
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 0.72rem;
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .media-tile {
+      min-height: 24rem;
+      display: flex;
+      align-items: end;
+      position: relative;
+      background: #07111f;
+      padding: 0;
+    }
+
+    .media-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(7,17,31,0.08), rgba(2,4,8,0.82));
+      z-index: 1;
+    }
+
+    .media-tile img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .media-tile .content {
+      position: relative;
+      z-index: 2;
+      padding: 1.3rem;
+    }
+
+    .shop-hero {
+      min-height: 22rem;
+      background: radial-gradient(circle at 20% 20%, rgba(145,226,255,0.18), transparent 18%), linear-gradient(180deg, rgba(8,14,27,0.7), rgba(4,8,16,0.95));
+    }
+
+    .email-box {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+      flex-wrap: wrap;
+    }
+
+    input[type="email"] {
+      flex: 1 1 18rem;
+      min-width: 0;
+      padding: 0.95rem 1rem;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(143,211,255,0.14);
+      color: var(--text);
+      outline: none;
+    }
+
+    input[type="email"]::placeholder { color: #89a2c3; }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      padding: 2rem 1.3rem 4rem;
+    }
+
+    .footer-shell {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      color: #93a8c7;
+      border-top: 1px solid rgba(143,211,255,0.1);
+      padding-top: 1.3rem;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 1.3rem;
+      transform: translateX(-50%);
+      color: #adc9ea;
+      font-size: 0.88rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      opacity: 0.75;
+    }
+
+    .scroll-indicator::before {
+      content: "";
+      display: block;
+      margin: 0 auto 0.7rem;
+      width: 1px;
+      height: 2.2rem;
+      background: linear-gradient(180deg, rgba(145,226,255,0.1), rgba(145,226,255,0.8), rgba(145,226,255,0.1));
+      animation: bob 1.8s ease-in-out infinite;
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    @media (max-width: 1080px) {
+      .hero-shell,
+      .story-grid,
+      .media-grid,
+      .shop-grid,
+      .characters-grid { grid-template-columns: 1fr; }
+      .visual-card { min-height: 34rem; }
+      .hero-meta,
+      .floating-copy { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+    }
+
+    @media (max-width: 740px) {
+      .nav { padding: 0.9rem; }
+      .nav-links { gap: 0.45rem; }
+      .nav-links a { padding: 0.65rem 0.8rem; font-size: 0.84rem; }
+      h1 { font-size: clamp(2.7rem, 15vw, 4.3rem); }
+      .hero { padding-top: 6.7rem; }
+      .visual-card { min-height: 28rem; }
+      .character-art { height: 17rem; }
+      .scroll-indicator { display: none; }
+    }
+  </style>
 </head>
-<body style="margin:0; background:black; color:white; font-family:Arial, sans-serif; display:flex; align-items:center; justify-content:center; height:100vh;">
-  <div style="text-align:center;">
-    <h1 style="font-size:48px; margin-bottom:20px;">HOODSTEIN</h1>
-    <p style="font-size:20px;">The storm is here.</p>
-  </div>
+<body>
+  <div class="lightning"></div>
+  <div class="orbs"></div>
+
+  <nav class="nav">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>HOODSTEIN</div>
+    </div>
+    <div class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#characters">Characters</a>
+      <a href="#media">Media</a>
+      <a href="#shop">Shop</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-shell">
+      <div class="reveal visible">
+        <span class="eyebrow">Electric legend • cinematic universe</span>
+        <h1><span class="gradient-text">A Storm</span><br />Created Him.</h1>
+        <p>
+          HOODSTEIN is not just a character — it is a dark electric mythology built from lightning, shadow, street energy, and monster-scale ambition.
+          This homepage is designed as an immersive portal: part movie trailer, part origin archive, part future merch machine.
+        </p>
+        <div class="cta-row">
+          <a class="button" href="#story">⚡ Enter the Universe</a>
+          <a class="ghost" href="#media">▶ Watch the Vision</a>
+          <a class="ghost" href="#shop">🛒 Shop Coming Soon</a>
+        </div>
+        <div class="hero-meta">
+          <div class="stat">
+            <strong>01</strong>
+            Origin forged in storm energy and mystery.
+          </div>
+          <div class="stat">
+            <strong>02</strong>
+            Built for characters, lore, visuals, and merchandise.
+          </div>
+          <div class="stat">
+            <strong>03</strong>
+            Designed to feel like a trailer before the trailer drops.
+          </div>
+        </div>
+      </div>
+
+      <div class="visual-card reveal">
+        <img src="assets/hoodstein-mystery-hero.jpg" alt="HoodStein mystery hero image" />
+        <div class="image-overlay"></div>
+        <div class="floating-copy">
+          <div class="mini-panel">
+            <span class="label">Signature look</span>
+            Hidden face. Lightning-charged shades. Shadow-first presence. Instant recognition.
+          </div>
+          <div class="mini-panel">
+            <span class="label">Universe status</span>
+            The homepage now opens with mystery first, keeping HoodStein cinematic, mythic, and unforgettable.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">Scroll to descend</div>
+  </header>
+
+  <section class="section" id="story">
+    <div class="section-shell">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Origin story</span>
+          <h2>The city heard thunder first.</h2>
+        </div>
+        <p>
+          Born from a violent experiment and amplified by electric force, HOODSTEIN stands between urban myth and unstoppable presence. Every section below should feel like another chamber of the universe opening up.
+        </p>
+      </div>
+
+      <div class="story-grid">
+        <div class="panel reveal">
+          <h3>The Rise</h3>
+          <p>
+            Lightning. Science. Mutation. Survival. HOODSTEIN emerges from a storm-charged event that should have ended everything — and instead created something greater. The city becomes a stage where fear, power, loyalty, and identity collide.
+          </p>
+        </div>
+        <div class="panel quote-block reveal">
+          <div>
+            “Not made in a lab.<br /><span>Awakened in a storm.</span>”
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="characters">
+    <div class="section-shell">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Character vault</span>
+          <h2>The faces of the universe</h2>
+        </div>
+        <p>
+          This section is built to expand as your official character art is added. Each card can later be swapped with locked-in visuals, bios, and links to deeper character pages.
+        </p>
+      </div>
+
+      <div class="characters-grid">
+        <article class="panel character-card reveal">
+          <div class="character-art"><img src="assets/hoodstein-mystery-portrait.jpg" alt="HoodStein mystery portrait" /></div>
+          <span class="label">Main icon</span>
+          <h3>HoodStein</h3>
+          <p>The electric force at the center of the entire brand universe.</p>
+        </article>
+        <article class="panel character-card reveal">
+          <div class="character-art"><img src="assets/plug-mascot.jpg" alt="Plug mascot" /></div>
+          <span class="label">Mascot energy</span>
+          <h3>PUPSTEIN / Plug</h3>
+          <p>The commercial mascot with personality, loyalty, and viral potential.</p>
+        </article>
+        <article class="panel character-card reveal">
+          <div class="character-art"><img src="assets/monster-pack.jpg" alt="Monster Pack group image" /></div>
+          <span class="label">Squad power</span>
+          <h3>Monster Pack</h3>
+          <p>The official team image now gives this section the real universe chemistry it needs.</p>
+        </article>
+        <article class="panel character-card reveal">
+          <div class="character-art"><img src="assets/michael-volt.jpg" alt="Michael Volt in the lab" /></div>
+          <span class="label">Primary threat</span>
+          <h3>Michael Volt</h3>
+          <p>The architect of the experiment and the core enemy behind the storm.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="media">
+    <div class="section-shell">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Visual engine</span>
+          <h2>Trailer energy. Brand scale.</h2>
+        </div>
+        <p>
+          Use these blocks for trailer stills, motion teasers, approved motorcycle images, monster truck visuals, and future campaign drops. The layout is already made to feel premium and cinematic.
+        </p>
+      </div>
+
+      <div class="media-grid">
+        <div class="panel media-tile reveal">
+          <img src="assets/hoodstein-bike.jpg" alt="HoodStein on electric motorcycle" />
+          <div class="content">
+            <span class="label">Featured frame</span>
+            <h3>Main trailer still</h3>
+            <p>The motorcycle visual now anchors the cinematic energy of the entire page.</p>
+          </div>
+        </div>
+        <div class="panel media-tile reveal">
+          <img src="assets/hoodstein-thunder-titan.jpg" alt="HoodStein with lightning motorcycle and truck" />
+          <div class="content">
+            <span class="label">Vehicle power</span>
+            <h3>Bike / truck visuals</h3>
+            <p>Lightning Motorcycle and Thunder Titan now feel like signature franchise assets.</p>
+          </div>
+        </div>
+        <div class="panel media-tile reveal">
+          <img src="assets/hoodstein-monster-world.jpg" alt="HoodStein monster world visual" />
+          <div class="content">
+            <span class="label">World building</span>
+            <h3>Scene archive</h3>
+            <p>This now expands the myth with a darker supernatural world reveal beneath the mystery-forward hero.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="shop">
+    <div class="section-shell">
+      <div class="section-head reveal">
+        <div>
+          <span class="eyebrow">Merch gateway</span>
+          <h2>Turn hype into product.</h2>
+        </div>
+        <p>
+          This section creates anticipation now and can later become your real storefront. For the current phase, it works as a premium coming-soon experience with a signup field and merch callouts.
+        </p>
+      </div>
+
+      <div class="shop-grid">
+        <div class="panel shop-hero reveal">
+          <span class="label">Drop preview</span>
+          <h3>Hoodies. Tees. Collectibles.</h3>
+          <p>
+            From logo-based apparel to full cinematic character merch, the brand is already positioned for product. Use this block to tease your first drop and push traffic toward launch readiness.
+          </p>
+        </div>
+        <div class="panel reveal">
+          <span class="label">Stay plugged in</span>
+          <h3>Join the launch list</h3>
+          <p>
+            Add your real email platform later. For now, this gives the site a finished, high-value brand feel.
+          </p>
+          <div class="email-box">
+            <input type="email" placeholder="Enter your email" />
+            <a class="button" href="#top">Join the Storm</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-shell">
+      <div>HOODSTEIN — Electric mythology in motion.</div>
+      <div>Built to expand into story, trailer, characters, and merch.</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.14 });
+
+    reveals.forEach((el) => observer.observe(el));
+  </script>
 </body>
 </html>
