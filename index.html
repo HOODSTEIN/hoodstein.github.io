@@ -1,14 +1,463 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en">
+
 <head>
-    <title>HOODSTEIN</title>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HOODSTEIN</title>
+
+<style>
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+body {
+
+  margin: 0;
+
+  background: #050505;
+
+  color: #ffffff;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+header {
+
+  text-align: center;
+
+  padding: 35px 20px;
+
+  border-bottom: 1px solid #242424;
+
+}
+
+.logo {
+
+  font-size: 38px;
+
+  font-weight: 800;
+
+  letter-spacing: 7px;
+
+}
+
+.hero {
+
+  text-align: center;
+
+  padding: 55px 20px 35px;
+
+}
+
+.hero h1 {
+
+  font-size: 34px;
+
+  margin-bottom: 12px;
+
+}
+
+.hero p {
+
+  max-width: 700px;
+
+  margin: auto;
+
+  color: #c8c8c8;
+
+  font-size: 17px;
+
+  line-height: 1.6;
+
+}
+
+.collection-title {
+
+  text-align: center;
+
+  margin: 35px 20px;
+
+}
+
+.collection-title h2 {
+
+  font-size: 28px;
+
+  letter-spacing: 2px;
+
+}
+
+.collection-title p {
+
+  color: #aaaaaa;
+
+}
+
+.grid {
+
+  width: 92%;
+
+  max-width: 1200px;
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+
+  gap: 25px;
+
+}
+
+.shirt {
+
+  background: #111111;
+
+  border: 1px solid #292929;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+
+}
+
+.shirt-label {
+
+  font-size: 32px;
+
+  font-weight: bold;
+
+  text-align: center;
+
+  padding: 18px;
+
+}
+
+.image-space {
+
+  background: #eeeeee;
+
+  color: #333333;
+
+  min-height: 330px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 20px;
+
+  font-weight: bold;
+
+}
+
+.shirt-info {
+
+  padding: 20px;
+
+  text-align: center;
+
+}
+
+.shirt-info h3 {
+
+  margin: 0 0 15px;
+
+}
+
+.choose {
+
+  display: inline-block;
+
+  padding: 12px 24px;
+
+  border: 1px solid #ffffff;
+
+  border-radius: 5px;
+
+  font-weight: bold;
+
+  letter-spacing: 1px;
+
+}
+
+footer {
+
+  text-align: center;
+
+  padding: 60px 20px 35px;
+
+  color: #777777;
+
+}
+
+@media (max-width: 600px) {
+
+  .logo {
+
+    font-size: 30px;
+
+  }
+
+  .hero h1 {
+
+    font-size: 28px;
+
+  }
+
+}
+
+</style>
+
 </head>
 
-<body style="background:black; color:white; text-align:center;">
+<body>
 
-    <h1>HOODSTEIN</h1>
+<header>
 
-    <img src="hoodstein-demon-crush.png" width="300">
+  <div class="logo">HOODSTEIN</div>
+
+</header>
+
+<section class="hero">
+
+  <h1>YOU CHOOSE WHAT WE MAKE.</h1>
+
+  <p>
+
+    Preview the upcoming HOODSTEIN T-shirt collection.
+
+    Choose the design and colorway you would actually wear.
+
+    Your selections will help determine which pieces go into production.
+
+  </p>
+
+</section>
+
+<section class="collection-title">
+
+  <h2>THE HUMANITY COLLECTION</h2>
+
+  <p>Building Humanity, One Person at a Time.</p>
+
+</section>
+
+<div class="grid">
+
+<div class="shirt">
+
+  <div class="shirt-label">A</div>
+
+  <div class="image-space">SHIRT A<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY A</h3>
+
+    <div class="choose">CHOOSE A</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">B</div>
+
+  <div class="image-space">SHIRT B<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY B</h3>
+
+    <div class="choose">CHOOSE B</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">C</div>
+
+  <div class="image-space">SHIRT C<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY C</h3>
+
+    <div class="choose">CHOOSE C</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">D</div>
+
+  <div class="image-space">SHIRT D<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY D</h3>
+
+    <div class="choose">CHOOSE D</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">E</div>
+
+  <div class="image-space">SHIRT E<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY E</h3>
+
+    <div class="choose">CHOOSE E</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">F</div>
+
+  <div class="image-space">SHIRT F<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY F</h3>
+
+    <div class="choose">CHOOSE F</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">G</div>
+
+  <div class="image-space">SHIRT G<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY G</h3>
+
+    <div class="choose">CHOOSE G</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">H</div>
+
+  <div class="image-space">SHIRT H<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY H</h3>
+
+    <div class="choose">CHOOSE H</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">I</div>
+
+  <div class="image-space">SHIRT I<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY I</h3>
+
+    <div class="choose">CHOOSE I</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">J</div>
+
+  <div class="image-space">SHIRT J<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY J</h3>
+
+    <div class="choose">CHOOSE J</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">K</div>
+
+  <div class="image-space">SHIRT K<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY K</h3>
+
+    <div class="choose">CHOOSE K</div>
+
+  </div>
+
+</div>
+
+<div class="shirt">
+
+  <div class="shirt-label">L</div>
+
+  <div class="image-space">SHIRT L<br>FRONT + BACK IMAGE</div>
+
+  <div class="shirt-info">
+
+    <h3>COLORWAY L</h3>
+
+    <div class="choose">CHOOSE L</div>
+
+  </div>
+
+</div>
+
+</div>
+
+<footer>
+
+  © 2026 HOODSTEIN. All Rights Reserved.
+
+</footer>
 
 </body>
+
 </html>
