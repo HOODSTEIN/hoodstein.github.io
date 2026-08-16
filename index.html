@@ -319,7 +319,7 @@ justify-content: center;
 
     <h3>COLORWAY A</h3>
 
-    <div class="choose" onclick="let v=document.getElementById('vote'); if(!v.value.split(',').includes('A')) v.value=v.value ? v.value+',A' : 'A'; this.innerHTML='✅ CHOSEN A'">CHOOSE A</div>
+    <div class="choose" onclick="if(this.dataset.selected)return; this.dataset.selected='1'; let v=document.getElementById('vote'); v.value=v.value ? v.value+',A' : 'A'; this.innerHTML='✅ CHOSEN A'">CHOOSE A</div>
 
   </div>
 
@@ -335,7 +335,7 @@ justify-content: center;
 
     <h3>COLORWAY B</h3>
 
-    <div class="choose" onclick="let v=document.getElementById('vote'); if(!v.value.split(',').includes('B')) v.value=v.value ? v.value+',B' : 'B'; this.innerHTML='✅ CHOSEN B'">CHOOSE B</div>
+    <div class="choose" onclick="if(this.dataset.selected)return; this.dataset.selected='1'; let v=document.getElementById('vote'); v.value=v.value ? v.value+',B' : 'B'; this.innerHTML='✅ CHOSEN B'">CHOOSE B</div>
 
   </div>
 
@@ -351,7 +351,7 @@ justify-content: center;
 
     <h3>COLORWAY C</h3>
 
-    <div class="choose" onclick="let v=document.getElementById('vote'); if(!v.value.split(',').includes('C')) v.value=v.value ? v.value+',C' : 'C'; this.innerHTML='✅ CHOSEN C'">CHOOSE C</div>
+    <div class="choose" onclick="if(this.dataset.selected)return; this.dataset.selected='1'; let v=document.getElementById('vote'); v.value=v.value ? v.value+',C' : 'C'; this.innerHTML='✅ CHOSEN C'">CHOOSE C</div>
 
   </div>
 
