@@ -67,6 +67,25 @@ header::before {
 
   filter: drop-shadow(0 0 6px rgba(255,255,255,0.55));
 
+ animation: electricFlicker 1.8s infinite;}
+  @keyframes electricFlicker {
+
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+
+    opacity: 1;
+
+    filter: drop-shadow(0 0 6px white) drop-shadow(0 0 14px white);
+
+  }
+
+  20%, 24%, 55% {
+
+    opacity: 0.18;
+
+    filter: drop-shadow(0 0 2px white);
+
+  }
+
 }
 .logo {
 
