@@ -367,7 +367,7 @@ justify-content: center;
 
     <h3>COLORWAY D</h3>
 
-    <div class="choose" onclick="let v=document.getElementById('vote'); if(!v.value.split(',').includes('D')) v.value=v.value ? v.value+',D' : 'D'; this.innerHTML='✅ CHOSEN D'">CHOOSE D</div>
+    <div class="choose" onclick="if(this.dataset.selected)return; this.dataset.selected='1'; let v=document.getElementById('vote'); v.value=v.value ? v.value+',D' : 'D'; this.innerHTML='✅ CHOSEN D'">CHOOSE D</div>
 
   </div>
 
