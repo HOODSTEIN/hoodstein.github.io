@@ -47,42 +47,131 @@ background: linear-gradient(180deg, #242424 0%, #080808 100%);position: relative
 
 overflow: hidden;
 }
-header::before {
+header::before,
+
+header::after {
 
   content: "";
 
   position: absolute;
 
-  left: 22px;
+  pointer-events: none;
 
-  top: 16px;
+  opacity: 0;
 
-  width: 34px;
+  background: #ffffff;
 
-  height: 105px;
+  filter:
 
-  background: rgba(255,255,255,0.75);
+    drop-shadow(0 0 4px #ffffff)
 
-  clip-path: polygon(55% 0, 25% 40%, 52% 40%, 18% 100%, 78% 32%, 50% 32%);
+    drop-shadow(0 0 12px rgba(220,235,255,0.95))
 
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.55));
+    drop-shadow(0 0 28px rgba(170,200,255,0.65));
 
- animation: electricFlicker 1.8s infinite;}
-  @keyframes electricFlicker {
+  animation: stormStrike 8s infinite;
 
-  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+}
 
-    opacity: 1;
+header::before {
 
-    filter: drop-shadow(0 0 6px white) drop-shadow(0 0 14px white);
+  top: -20px;
+
+  left: 58%;
+
+  width: 5px;
+
+  height: 190px;
+
+  transform: rotate(8deg);
+
+  clip-path: polygon(
+
+    35% 0, 100% 0,
+
+    55% 24%, 100% 24%,
+
+    40% 48%, 85% 48%,
+
+    25% 72%, 70% 72%,
+
+    0 100%, 22% 66%,
+
+    0 66%, 45% 42%,
+
+    10% 42%, 60% 18%,
+
+    20% 18%
+
+  );
+
+}
+
+header::after {
+
+  top: 48px;
+
+  left: 59%;
+
+  width: 95px;
+
+  height: 4px;
+
+  transform: rotate(-24deg);
+
+  clip-path: polygon(
+
+    0 35%, 32% 0,
+
+    26% 45%, 62% 10%,
+
+    52% 58%, 100% 28%,
+
+    68% 100%, 72% 58%,
+
+    38% 88%, 44% 46%
+
+  );
+
+  animation-delay: 0.04s;
+
+}
+
+@keyframes stormStrike {
+
+  0%, 72%, 74%, 76%, 100% {
+
+    opacity: 0;
 
   }
 
-  20%, 24%, 55% {
+  72.5% {
 
-    opacity: 0.18;
+    opacity: 1;
 
-    filter: drop-shadow(0 0 2px white);
+  }
+
+  73% {
+
+    opacity: 0.12;
+
+  }
+
+  73.4% {
+
+    opacity: 1;
+
+  }
+
+  75% {
+
+    opacity: 0.55;
+
+  }
+
+  75.3% {
+
+    opacity: 1;
 
   }
 
