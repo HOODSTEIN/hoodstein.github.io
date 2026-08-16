@@ -414,13 +414,13 @@ justify-content: center;
   <script>
     const lightbox = document.getElementById('lightbox');
     document.querySelectorAll('.image-space a').forEach(link => {
-      link.addEventListener('click', e => { 
+      link.addEventListener('pointerup', e => { 
         e.preventDefault();
         lightbox.innerHTML = '<span>&times;</span><img src="' + link.href + '">';
         lightbox.classList.add('active');
         });
       });
-    lightbox.addEventListener('click', () => {
+    lightbox.addEventListener('pointerup', () => {
       lightbox.classList.remove('active');
       });
     </script> 
