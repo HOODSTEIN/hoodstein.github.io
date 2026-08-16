@@ -239,8 +239,32 @@ footer {
 
 }
 
-</style>
-
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  z-index: 9999;
+  align-items: center;
+justify-content: center;
+  }
+  #lightbox.active {
+    display: flex;
+    }
+  #lightbox img {
+    max-width: 92%;
+    max-height: 92%;
+    object-fit: contain;
+    } 
+  #lightbox span {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 44px;
+    color: white;
+    cursor: pointer;
+    }
+  </style>
 </head>
 
 <body>
@@ -355,7 +379,7 @@ footer {
 
     <div class="image-space">
 
-      <a href="Storm-Tee.png.png" target="_blank"><img src="Storm-Tee.png.png" alt="H-19 Storm T-Shirt"></a>
+      <a href="Storm-Tee.png.png" ><img src="Storm-Tee.png.png" alt="H-19 Storm T-Shirt"></a>
 
     </div>
 
@@ -367,7 +391,7 @@ footer {
 
     <div class="image-space">
 
-    <a href="Storm-Hoodie.png.png" target="_blank"><img src="Storm-Hoodie.png.png" alt="H-19 Storm Hoodie"></a>
+    <a href="Storm-Hoodie.png.png" ><img src="Storm-Hoodie.png.png" alt="H-19 Storm Hoodie"></a>
 
     </div>
 
@@ -386,6 +410,20 @@ footer {
     
     
 
+<div id="lightbox"></div>
+  <script>
+    const lightbox = document.getElementById('lightbox');
+    document.querySelectorAll('.image-space a').forEach(link => {
+      link.addEventListener('click', e => { 
+        e.preventDefault();
+        lightbox.innerHTML = '<span>&times;</span><img src="' + link.href + '">';
+        lightbox.classList.add('active');
+        });
+      });
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      });
+    </script> 
 </body>
 
 </html> 
