@@ -651,7 +651,7 @@ justify-content: center;
 
       <div style="text-align:center;padding:12px;">
 
-        <button type="button" style="padding:12px 22px;font-size:16px;font-weight:700;border-radius:8px;cursor:pointer;background:#1261a8;color:#ffffff!important;-webkit-text-fill-color:#ffffff;border:2px solid #ffffff;" onclick="this.textContent='✓ You Chose';this.style.background='#1f8f4e';this.style.color='#ffffff';this.style.webkitTextFillColor='#ffffff';">Choose This</button>
+        <button type="button" onclick="if(this.textContent.trim()==='Choose This'){this.textContent='✓ You Chose';this.style.background='#1f8f4e';}else{this.textContent='Choose This';this.style.background='#1f6fb2';}" style="padding:12px 22px;font-size:16px;font-weight:700;border-radius:8px;cursor:pointer;background:#1f6fb2;color:#ffffff;-webkit-text-fill-color:#ffffff;border:2px solid #ffffff;">Choose This</button>
 
           
 
